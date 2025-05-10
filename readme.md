@@ -1,6 +1,6 @@
 # FlashType — Typing Performance Tracker
 
-FlashType is a modern full-stack typing speed tester and performance tracker built with **React**, **Node.js**, **Express**, **Tailwind CSS**, and **Chart.js**. It visually tracks user accuracy presents meaningful statistics after each test, including WPM, raw WPM, and error rate. All user data is securely stored and can be revisited through a results dashboard.
+- FlashType is a modern full-stack typing speed tester and performance tracker built with **React**, **Node.js**, **Express**, **Tailwind CSS**, and **Chart.js**. It visually tracks user accuracy presents meaningful statistics after each test, including WPM, raw WPM, and error rate. All user data is securely stored and can be revisited through a results dashboard.
 
 ## Features
 
@@ -11,7 +11,7 @@ FlashType is a modern full-stack typing speed tester and performance tracker bui
 - Results tab showing all past test records
 - Interactive charts for each test via a **Details** button
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Frontend | Backend | Authentication   | Styling      | Charts   |
 | -------- | ------- | ---------------- | ------------ | -------- |
@@ -69,10 +69,10 @@ flashtype/
 
 ## Code
 
-👉 [GitHub Repo](https://github.com/IsteakShupto/flashtype)
+- [GitHub Repo](https://github.com/IsteakShupto/flashtype)
 
 > _Replace the above links with your actual URLs_
 
 ## Contact
 
-Feel free to reach out or connect on [LinkedIn](https://linkedin.com/in/shupto006) for feedback, collaboration, or just to say hi!
+- Feel free to reach out or connect on [LinkedIn](https://linkedin.com/in/shupto006) for feedback, collaboration, or just to say hi!
