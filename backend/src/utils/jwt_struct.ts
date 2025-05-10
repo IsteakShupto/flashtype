@@ -1,4 +1,4 @@
-export type jwt_type = {
+export type JwtType = {
   id: number;
   email: string;
 };

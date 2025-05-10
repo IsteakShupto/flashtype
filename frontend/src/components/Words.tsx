@@ -5,7 +5,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Details from "./Details";
 
-type dataType = {
+type DataType = {
   words: string[];
 };
 
@@ -36,7 +36,7 @@ function Words() {
     if (!isError && !isLoading && data) {
       localStorage.setItem(
         "all_words",
-        JSON.stringify((data as dataType).words)
+        JSON.stringify((data as DataType).words)
       );
 
       const words = JSON.parse(localStorage.getItem("all_words")!)

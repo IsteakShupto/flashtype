@@ -4,21 +4,21 @@ import Details from "./Details";
 import Header from "./Header";
 import Footer from "./Footer";
 
-type result = {
+type Result = {
   matched: number;
   totalTyped: number;
 };
 
-type scoreCard = {
+type ScoreCard = {
   id: number;
   userId: number;
   createdAt: string;
-  finalResult: result[];
+  finalResult: Result[];
 };
 
 type dataType = {
   message: string;
-  allScoreCards: scoreCard[];
+  allScoreCards: ScoreCard[];
 };
 
 function Result() {

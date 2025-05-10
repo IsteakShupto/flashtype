@@ -78,7 +78,7 @@ userRouter.post("/login", async (req: any, res: any, next: any) => {
   res.cookie("authToken", token, {
     httpOnly: true,
     sameSite: "Lax",
-    secure: false,
+    secure: process.env.NODE_ENV === "production",
     maxAge: 24 * 60 * 60 * 1000,
   });
 

@@ -1,4 +1,4 @@
-type result = {
+type Result = {
   matched: number;
   totalTyped: number;
 };
@@ -28,12 +28,12 @@ ChartJS.register(
   Title
 );
 
-type finalResultType = {
-  finalResult: result[];
+type FinalResultType = {
+  finalResult: Result[];
   createdAt?: string;
 };
 
-const Details = ({ finalResult, createdAt }: finalResultType) => {
+const Details = ({ finalResult, createdAt }: FinalResultType) => {
   console.log(createdAt);
   const labels: number[] = finalResult.slice(-60).map((obj) => obj.matched);
   const dataPoints: number[] = finalResult
