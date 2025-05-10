@@ -23,8 +23,8 @@ export async function authMiddleware(req: any, res: any, next: any) {
     });
 
     if (!findUser) {
-      // 404 - not found
-      return res.status(404).json({ message: "User not found!" });
+      // 401 - unauthorized
+      return res.status(401).json({ message: "User not found!" });
     }
     req.user = findUser;
     next();

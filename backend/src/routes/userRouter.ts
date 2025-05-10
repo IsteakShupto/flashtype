@@ -48,8 +48,8 @@ userRouter.post("/login", async (req: any, res: any, next: any) => {
   });
 
   if (!searchUser) {
-    // 404 - not found
-    return res.status(404).json({
+    // 401 - unauthorized
+    return res.status(401).json({
       message: "Email not found!",
     });
   }
