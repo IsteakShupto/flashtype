@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { JwtType } from "../utils/jwt_struct";
 
 export async function authMiddleware(req: any, res: any, next: any) {
-  const token = req.cookies.authToken;
+  const token = req.cookies.accessToken;
 
   if (!token) {
     // 401 - unauthorized
@@ -13,7 +13,10 @@ export async function authMiddleware(req: any, res: any, next: any) {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as JwtType;
+    const decoded = jwt.verify(
+      token,
+      process.env.ACCESS_TOKEN_SECRET!
+    ) as JwtType;
 
     const findUser = await prisma.user.findFirst({
       where: {

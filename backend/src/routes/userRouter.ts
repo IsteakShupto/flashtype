@@ -66,16 +66,36 @@ userRouter.post("/login", async (req: any, res: any, next: any) => {
     });
   }
 
-  const token = jwt.sign(
+  const accessToken = jwt.sign(
     {
       id: searchUser.id,
       email: searchUser.email,
     },
-    process.env.JWT_SECRET!,
-    { expiresIn: "1d" }
+    process.env.ACCESS_TOKEN_SECRET!,
+    {
+      expiresIn: "10m",
+    }
   );
 
-  res.cookie("authToken", token, {
+  const refreshToken = jwt.sign(
+    {
+      id: searchUser.id,
+      email: searchUser.email,
+    },
+    process.env.REFRESH_TOKEN_SECRET!,
+    {
+      expiresIn: "1d",
+    }
+  );
+
+  res.cookie("accessToken", accessToken, {
+    httpOnly: true,
+    sameSite: "Lax",
+    secure: process.env.NODE_ENV === "production",
+    maxAge: 5 * 60 * 1000,
+  });
+
+  res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     sameSite: "Lax",
     secure: process.env.NODE_ENV === "production",
@@ -88,7 +108,8 @@ userRouter.post("/login", async (req: any, res: any, next: any) => {
 });
 
 userRouter.post("/logout", async (req: any, res: any, next: any) => {
-  res.clearCookie("authToken");
+  res.clearCookie("accessToken");
+  res.clearCookie("refreshToken");
   return res.json({
     message: "Logout successful!",
   });

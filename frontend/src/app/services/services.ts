@@ -1,11 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { customFetchBaseQuery } from "../../utils/customFetchQuery";
 
 export const typeTesterApi = createApi({
   reducerPath: "typeTester",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/api",
-    credentials: "include",
-  }),
+  baseQuery: customFetchBaseQuery,
   endpoints: (builder) => ({
     getAllWords: builder.query<unknown, void>({
       query: () => "/words/",
