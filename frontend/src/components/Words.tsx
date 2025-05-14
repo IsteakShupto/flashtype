@@ -4,6 +4,8 @@ import { useFinalResultDataUpload } from "../utils/uploadData";
 import Header from "./Header";
 import Footer from "./Footer";
 import Details from "./Details";
+import Error from "./Error";
+import Loading from "./Loading";
 
 type DataType = {
   words: string[];
@@ -212,11 +214,19 @@ function Words() {
   }, [count, typedWords, isCapsLockOn, isTimerOn]);
 
   if (isError) {
-    return <>Error</>;
+    return (
+      <>
+        <Error />
+      </>
+    );
   }
 
   if (isLoading) {
-    return <>Loading</>;
+    return (
+      <>
+        <Loading />
+      </>
+    );
   }
 
   return (

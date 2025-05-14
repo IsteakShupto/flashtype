@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useLoginMutation } from "../app/services/services";
 import { useNavigate } from "react-router";
+import Error from "./Error";
+import Loading from "./Loading";
 
 function Login() {
   const [login, { data, isError, isLoading }] = useLoginMutation();
@@ -8,9 +10,19 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  if (isError) return <h1>Error</h1>;
+  if (isError)
+    return (
+      <>
+        <Error />
+      </>
+    );
 
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading)
+    return (
+      <>
+        <Loading />
+      </>
+    );
 
   const handleLogin = async () => {
     try {
