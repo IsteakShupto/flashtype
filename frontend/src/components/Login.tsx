@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useLoginMutation } from "../app/services/services";
 import { useNavigate } from "react-router";
-import Error from "./Error";
-import Loading from "./Loading";
+import { ToastContainer, toast } from "react-toastify";
+import Footer from "./Footer";
 
 function Login() {
   const [login, { data, isError, isLoading }] = useLoginMutation();
@@ -10,21 +10,23 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  if (isError)
-    return (
-      <>
-        <Error />
-      </>
-    );
-
-  if (isLoading)
-    return (
-      <>
-        <Loading />
-      </>
-    );
-
   const handleLogin = async () => {
+    if (!email) {
+      toast("Please provide email address.", {
+        progressClassName: "toast-progress-bar",
+        theme: "dark",
+      });
+      return;
+    }
+
+    if (!password) {
+      toast("Please provide password.", {
+        progressClassName: "toast-progress-bar",
+        theme: "dark",
+      });
+      return;
+    }
+
     try {
       const loginCredentials = {
         email: email,
@@ -32,15 +34,21 @@ function Login() {
       };
 
       const result = await login(loginCredentials).unwrap();
-      console.log(result, data);
-      if (result.message) navigate("/");
+      if (result.message) {
+        navigate("/");
+      }
     } catch (error) {
+      toast("Wrong email or password.", {
+        progressClassName: "toast-progress-bar",
+        theme: "dark",
+      });
       console.log("Error logging in", error);
     }
   };
 
   return (
     <>
+      <ToastContainer />
       <div className="min-h-screen flex flex-col justify-center items-center bg-black">
         <div className="border-neutral-700 border p-10">
           <div className="w-80 mb-12 ">
@@ -88,6 +96,7 @@ function Login() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

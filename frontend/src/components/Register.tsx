@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useRegisterMutation } from "../app/services/services";
 import { useNavigate } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
+import Footer from "./Footer";
 
 function Register() {
   const [register, { data, isError, isLoading }] = useRegisterMutation();
@@ -9,16 +11,31 @@ function Register() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  if (isError)
-    return (
-      <div>
-        <h1 className="">{isError}</h1>
-      </div>
-    );
-
-  if (isLoading) return <h1>Loading...</h1>;
-
   const handleSignup = async () => {
+    if (!email) {
+      toast("Please provide email address.", {
+        progressClassName: "toast-progress-bar",
+        theme: "dark",
+      });
+      return;
+    }
+
+    if (!name) {
+      toast("Please provide your name.", {
+        progressClassName: "toast-progress-bar",
+        theme: "dark",
+      });
+      return;
+    }
+
+    if (!password) {
+      toast("Please provide password.", {
+        progressClassName: "toast-progress-bar",
+        theme: "dark",
+      });
+      return;
+    }
+
     try {
       const signupCredentials = {
         email: email,
@@ -28,7 +45,12 @@ function Register() {
 
       const result = await register(signupCredentials).unwrap();
       console.log(result, data);
-      if (result.message) navigate("/login");
+      if (result.message) {
+        toast(result.message, {
+          progressClassName: "toast-progress-bar",
+          theme: "dark",
+        });
+      }
     } catch (error) {
       console.log("Error logging in", error);
     }
@@ -36,6 +58,7 @@ function Register() {
 
   return (
     <>
+      <ToastContainer />
       <div className="min-h-screen flex flex-col justify-center items-center bg-black">
         <div className="border-neutral-400 border p-10">
           <div className="w-80 mb-12 ">
@@ -95,6 +118,7 @@ function Register() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

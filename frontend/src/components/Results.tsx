@@ -3,6 +3,7 @@ import { useGetFinalResultDataQuery } from "../app/services/services";
 import Details from "./Details";
 import Header from "./Header";
 import Footer from "./Footer";
+import { Link } from "react-router";
 
 type Result = {
   matched: number;
@@ -39,7 +40,7 @@ function Result() {
     return <>Loading...</>;
   }
 
-  console.log(data);
+  console.log((data as dataType).allScoreCards);
 
   return (
     <>
@@ -62,80 +63,95 @@ function Result() {
             </div>
           </div>
         )}
+        <div>
+          {(data as dataType).allScoreCards.length === 0 && (
+            <div className="text-center pt-10">
+              <p>You haven't taken any typing test yet</p>
+              <Link to={"/"}>
+                <span className="text-white">Click here</span>
+              </Link>{" "}
+              to take a test
+            </div>
+          )}
+        </div>
         <div className="relative overflow-x-auto max-w-[1200px] m-auto pt-10">
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-            <thead className="text-xs text-black bg-neutral-50">
-              <tr>
-                <th scope="col" className="px-6 py-3">
-                  Date / Time
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Accuracy (%)
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Characters Per Minute (CPM)
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Words Per Minute (WPM)
-                </th>
-                <th scope="col" className="px-6 py-3"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {(data as dataType).allScoreCards.map(
-                (score, scoreIndex: number) => {
-                  return (
-                    <tr
-                      className="bg-white border-b border-neutral-200"
-                      key={scoreIndex}
-                    >
-                      <th
-                        scope="row"
-                        className="px-6 py-4 font-medium text-black whitespace-nowrap"
-                      >
-                        {new Date(score.createdAt).toLocaleString()}
-                      </th>
-                      <td className="px-6 py-4 text-neutral-700 font-semibold">
-                        {score.finalResult &&
-                          Math.ceil(
-                            (score.finalResult[score.finalResult.length - 1]
-                              .matched /
-                              score.finalResult[score.finalResult.length - 1]
-                                .totalTyped) *
-                              100
-                          )}
-                      </td>
-                      <td className="px-6 py-4 text-neutral-700 font-semibold">
-                        {score.finalResult &&
-                          Math.ceil(
-                            score.finalResult[score.finalResult.length - 1]
-                              .totalTyped / 100
-                          )}
-                      </td>
-                      <td className="px-6 py-4 text-neutral-700 font-semibold">
-                        {score.finalResult &&
-                          Math.ceil(
-                            score.finalResult[score.finalResult.length - 1]
-                              .matched / 5
-                          )}
-                      </td>
-                      <td className="px-6 py-4 text-neutral-700 font-semibold">
-                        <button
-                          className="cursor-pointer"
-                          onClick={() => {
-                            setFinalResult(score.finalResult);
-                            setCreatedAt(score.createdAt);
-                          }}
+          {(data as dataType).allScoreCards &&
+            (data as dataType).allScoreCards.length > 0 && (
+              <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+                <thead className="text-xs text-white bg-neutral-900">
+                  <tr>
+                    <th scope="col" className="px-6 py-3">
+                      Date / Time
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Accuracy (%)
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Characters Per Minute (CPM)
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Words Per Minute (WPM)
+                    </th>
+                    <th scope="col" className="px-6 py-3"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(data as dataType).allScoreCards.map(
+                    (score, scoreIndex: number) => {
+                      return (
+                        <tr
+                          className="bg-white border-b border-neutral-200"
+                          key={scoreIndex}
                         >
-                          Details
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                }
-              )}
-            </tbody>
-          </table>
+                          <th
+                            scope="row"
+                            className="px-6 py-4 font-medium text-black whitespace-nowrap"
+                          >
+                            {new Date(score.createdAt).toLocaleString()}
+                          </th>
+                          <td className="px-6 py-4 text-neutral-700 font-semibold">
+                            {score.finalResult &&
+                              Math.ceil(
+                                (score.finalResult[score.finalResult.length - 1]
+                                  .matched /
+                                  score.finalResult[
+                                    score.finalResult.length - 1
+                                  ].totalTyped) *
+                                  100
+                              )}
+                          </td>
+                          <td className="px-6 py-4 text-neutral-700 font-semibold">
+                            {score.finalResult &&
+                              Math.ceil(
+                                score.finalResult[score.finalResult.length - 1]
+                                  .totalTyped / 100
+                              )}
+                          </td>
+                          <td className="px-6 py-4 text-neutral-700 font-semibold">
+                            {score.finalResult &&
+                              Math.ceil(
+                                score.finalResult[score.finalResult.length - 1]
+                                  .matched / 5
+                              )}
+                          </td>
+                          <td className="px-6 py-4 text-neutral-700 font-semibold">
+                            <button
+                              className="cursor-pointer"
+                              onClick={() => {
+                                setFinalResult(score.finalResult);
+                                setCreatedAt(score.createdAt);
+                              }}
+                            >
+                              Details
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    }
+                  )}
+                </tbody>
+              </table>
+            )}
         </div>
       </div>
       <Footer />
