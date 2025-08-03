@@ -230,9 +230,9 @@ function Words() {
   }
 
   return (
-    <div className="bg-black">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {finalResult && finalResult.length > 0 && timer === 0 && (
-        <div className="absolute min-h-screen w-full left-0 top-0 z-100 bg-black px-10 py-5">
+        <div className="absolute min-h-screen w-full left-0 top-0 z-100 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-10 py-5">
           <div className="flex justify-end">
             <button
               className="bg-white text-black font-semibold px-3 py-0.5 cursor-pointer"

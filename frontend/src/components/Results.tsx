@@ -44,10 +44,10 @@ function Result() {
 
   return (
     <>
-      <Header />
-      <div className="bg-black min-h-screen text-neutral-400 pt-20">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-5">
+        <Header />
         {finalResult && finalResult.length > 0 && (
-          <div className="absolute min-h-screen w-full left-0 top-0 z-100 bg-black px-10 py-5">
+          <div className="absolute min-h-screen w-full left-0 top-0 z-100 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-10 py-5">
             <div className="flex justify-end">
               <button
                 className="bg-white text-black font-semibold px-3 py-0.5 cursor-pointer"
@@ -78,7 +78,7 @@ function Result() {
           {(data as dataType).allScoreCards &&
             (data as dataType).allScoreCards.length > 0 && (
               <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-                <thead className="text-xs text-white bg-neutral-900">
+                <thead className="text-xs text-white from-slate-900 via-slate-800 to-slate-900">
                   <tr>
                     <th scope="col" className="px-6 py-3">
                       Date / Time
@@ -153,8 +153,10 @@ function Result() {
               </table>
             )}
         </div>
+        <div className="mt-56">
+          <Footer />
+        </div>
       </div>
-      <Footer />
     </>
   );
 }
